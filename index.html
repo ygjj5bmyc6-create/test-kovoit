@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0aa56b"><link rel="manifest" href="manifest.json"><title>Covoit’Entreprise</title>
+<style>
+:root{--g:#0aa56b;--g2:#e7f8f1;--d:#102a2e;--m:#6e7f82;--bg:#f4f7f6;--w:#fff;--b:#dfe8e5;--red:#c94b46}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--d)}button,input,select{font:inherit}button{cursor:pointer}
+#login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(145deg,#effaf5,#f4f7f6)}.loginbox{width:min(430px,100%);background:#fff;border:1px solid var(--b);border-radius:22px;padding:30px;box-shadow:0 15px 45px #123d3215}.logo{font-size:24px;font-weight:900;margin-bottom:8px}.logo i{color:var(--g);font-style:normal}.loginbox h1{font-size:24px;margin:22px 0 6px}.loginbox p{color:var(--m)}.field{margin:13px 0}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field input,.field select{width:100%;padding:12px 13px;border:1px solid var(--b);border-radius:11px;background:#fff}.btn{background:var(--g);color:#fff;border:0;border-radius:11px;padding:11px 16px;font-weight:800}.btn.full{width:100%;margin-top:8px}.btn.alt{background:#edf5f2;color:#086e4b}.btn.red{background:#fff0ef;color:var(--red)}.hint{font-size:12px;color:var(--m);margin-top:12px}
+.app{display:none;min-height:100vh}.side{width:250px;background:#0e292d;color:#fff;position:fixed;inset:0 auto 0 0;padding:20px 14px}.brand{font-weight:900;font-size:20px;padding:10px 12px 24px}.brand i{color:#51dda8;font-style:normal}.nav button{width:100%;background:none;color:#d8e8e5;text-align:left;border:0;padding:12px 13px;border-radius:10px;margin:3px 0}.nav button:hover,.nav button.on{background:var(--g);color:#fff}.main{margin-left:250px;padding:28px;width:calc(100% - 250px)}.page{display:none}.page.on{display:block}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.top h2{margin:0;font-size:28px}.muted{color:var(--m);font-size:14px}.badge{display:inline-block;background:var(--g2);color:#08744d;padding:6px 10px;border-radius:16px;font-size:12px;font-weight:800}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{background:#fff;border:1px solid var(--b);border-radius:16px;padding:18px;box-shadow:0 4px 18px #123d3208}.metric b{display:block;font-size:28px;margin-top:6px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}.action{text-align:left;background:#fff;border:1px solid var(--b);border-radius:16px;padding:20px}.action strong{display:block;margin:7px 0}.list{display:grid;gap:12px}.trip{display:flex;justify-content:space-between;align-items:center;gap:14px}.trip h3{margin:0 0 6px}.tags span{display:inline-block;background:#edf5f2;padding:5px 8px;border-radius:14px;font-size:11px;margin:3px 3px 0 0}.form{max-width:700px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.msg{max-width:760px}.bubble{background:#edf5f2;border-radius:14px;padding:11px 13px;width:max-content;max-width:82%;margin:8px 0}.bubble.me{background:#d8f7e9;margin-left:auto}.search{display:grid;grid-template-columns:1fr 1fr 150px;gap:10px;margin-bottom:15px}.table{width:100%;border-collapse:collapse}.table td,.table th{text-align:left;padding:11px;border-bottom:1px solid var(--b);font-size:14px}.bottom{display:none}
+.toast{position:fixed;right:18px;bottom:18px;background:#102a2e;color:#fff;padding:13px 16px;border-radius:12px;display:none;z-index:20}
+@media(max-width:800px){.side{display:none}.main{margin:0;width:100%;padding:18px 15px 80px}.cards{grid-template-columns:1fr 1fr}.actions{grid-template-columns:1fr}.search{grid-template-columns:1fr}.row{grid-template-columns:1fr}.bottom{position:fixed;display:flex;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--b);z-index:10;justify-content:space-around;padding:7px}.bottom button{border:0;background:none;color:var(--m);font-size:11px}.bottom button.on{color:var(--g);font-weight:900}.top h2{font-size:23px}}
+</style></head><body>
+
+<div id="login">
+ <div class="loginbox">
+  <div class="logo">🚗 Covoit’<i>Entreprise</i></div>
+  <div class="badge">Espace salarié sécurisé</div>
+  <h1>Bienvenue</h1><p>Connectez-vous avec votre compte professionnel.</p>
+  <div class="field"><label>Email professionnel</label><input id="email" value="thomas@entreprise.fr" type="email"></div>
+  <div class="field"><label>Mot de passe</label><input id="pass" value="demo1234" type="password"></div>
+  <button class="btn full" onclick="login()">Se connecter</button>
+  <div class="hint">Démo : thomas@entreprise.fr / demo1234 · Admin : admin@entreprise.fr / admin1234</div>
+ </div>
+</div>
+
+<div id="app" class="app">
+<aside class="side"><div class="brand">🚗 Covoit’<i>Entreprise</i></div><div class="nav">
+<button data-page="home">⌂ Accueil</button><button data-page="search">⌕ Rechercher</button><button data-page="create">＋ Proposer un trajet</button><button data-page="trips">▣ Mes trajets</button><button data-page="messages">💬 Messages</button><button data-page="profile">◯ Mon profil</button><button id="adminNav" data-page="admin">⚙ Administration</button>
+<button onclick="logout()" style="margin-top:25px">↪ Déconnexion</button></div></aside>
+<main class="main">
+
+<section id="home" class="page">
+<div class="top"><div><h2>Bonjour <span id="hello"></span> 👋</h2><div class="muted">Votre espace covoiturage entreprise.</div></div><span class="badge">Gratuit</span></div>
+<div class="actions"><button class="action" onclick="go('search')">🔎<strong>Rechercher un trajet</strong><span class="muted">Trouver un collègue pour partager votre trajet.</span></button><button class="action" onclick="go('create')">🚗<strong>Proposer un trajet</strong><span class="muted">Partager vos places disponibles.</span></button></div>
+<div class="cards"><div class="card"><div class="muted">Prochain trajet</div><b id="nextTrip">Aucun</b><p id="nextTripSub">—</p></div><div class="card metric"><div class="muted">Mes réservations</div><b id="bookingCount">0</b></div><div class="card metric"><div class="muted">Messages</div><b id="msgCount">0</b></div></div>
+</section>
+
+<section id="search" class="page"><div class="top"><div><h2>Rechercher un trajet</h2><div class="muted">Les résultats proviennent des trajets disponibles dans l’entreprise.</div></div></div>
+<div class="card"><div class="search"><input id="sf" placeholder="Départ"><input id="st" placeholder="Destination"><button class="btn" onclick="renderSearch()">Rechercher</button></div><div id="results" class="list"></div></div></section>
+
+<section id="create" class="page"><div class="top"><div><h2>Proposer un trajet</h2><div class="muted">Publiez un trajet visible aux salariés autorisés.</div></div></div>
+<div class="card form"><div class="row"><div class="field"><label>Départ</label><input id="cf" placeholder="Ex. Perpignan"></div><div class="field"><label>Destination</label><input id="ct" placeholder="Ex. Siège entreprise"></div></div>
+<div class="row"><div class="field"><label>Date</label><input id="cd" type="date"></div><div class="field"><label>Heure</label><input id="ch" type="time" value="08:00"></div></div>
+<div class="row"><div class="field"><label>Places</label><select id="cp"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div><div class="field"><label>Récurrence</label><select id="cr"><option>Une fois</option><option>Chaque semaine</option><option>Lundi au vendredi</option></select></div></div>
+<div class="field"><label>Commentaire</label><input id="cc" placeholder="Optionnel"></div><button class="btn" onclick="createTrip()">Publier le trajet</button></div></section>
+
+<section id="trips" class="page"><div class="top"><div><h2>Mes trajets</h2><div class="muted">Trajets que vous proposez ou avez réservés.</div></div></div><div id="myTrips" class="list"></div></section>
+
+<section id="messages" class="page"><div class="top"><div><h2>Messages</h2><div class="muted">Échangez avec vos covoitureurs.</div></div></div>
+<div class="card msg"><b>Sophie Martin</b><div id="chat"><div class="bubble">Bonjour ! Je confirme pour demain à 8h.</div><div class="bubble me">Parfait, à demain 👍</div></div><div class="row"><input id="mi" placeholder="Votre message"><button class="btn" onclick="sendMsg()">Envoyer</button></div></div></section>
+
+<section id="profile" class="page"><div class="top"><div><h2>Mon profil</h2><div class="muted">Informations professionnelles</div></div></div><div class="card form"><div class="field"><label>Nom</label><input id="pn"></div><div class="field"><label>Email</label><input id="pe" readonly></div><div class="field"><label>Département</label><input id="pd" value="Salarié"></div><button class="btn" onclick="saveProfile()">Enregistrer</button></div></section>
+
+<section id="admin" class="page"><div class="top"><div><h2>Administration</h2><div class="muted">Réservé à l’administrateur de l’entreprise.</div></div></div><div class="cards"><div class="card metric"><div class="muted">Salariés</div><b id="am">128</b></div><div class="card metric"><div class="muted">Trajets</div><b id="at">0</b></div><div class="card metric"><div class="muted">Réservations</div><b id="ab">0</b></div></div><div class="card" style="margin-top:15px"><h3>Utilisateurs</h3><table class="table"><tr><th>Nom</th><th>Email</th><th>Statut</th></tr><tr><td>Thomas Dupont</td><td>thomas@entreprise.fr</td><td>Actif</td></tr><tr><td>Sophie Martin</td><td>sophie@entreprise.fr</td><td>Actif</td></tr><tr><td>Julien Bernard</td><td>julien@entreprise.fr</td><td>Actif</td></tr></table></div></section>
+</main>
+<nav class="bottom"><button data-page="home">⌂<br>Accueil</button><button data-page="search">⌕<br>Recherche</button><button data-page="create">＋<br>Proposer</button><button data-page="trips">▣<br>Trajets</button><button data-page="profile">◯<br>Profil</button></nav>
+</div><div id="toast" class="toast"></div>
+
+<script>
+const K='ce_v1_data';
+let memoryStore={};
+function readStore(key){try{return localStorage.getItem(key)}catch(e){return memoryStore[key]??null}}
+function writeStore(key,value){try{localStorage.setItem(key,value)}catch(e){memoryStore[key]=value}}
+function removeStore(key){try{localStorage.removeItem(key)}catch(e){delete memoryStore[key]}}
+let data=JSON.parse(readStore(K)||'null')||{trips:[
+{id:1,owner:'Sophie Martin',from:'Perpignan',to:'Siège entreprise',date:new Date().toISOString().slice(0,10),time:'08:00',places:3,booked:0,rec:'Chaque semaine'},
+{id:2,owner:'Julien Bernard',from:'Perpignan',to:'Siège entreprise',date:new Date().toISOString().slice(0,10),time:'08:20',places:2,booked:1,rec:'Une fois'}],bookings:[],messages:[],profiles:{}};
+let user=null;
+function save(){writeStore(K,JSON.stringify(data))}
+function toast(t){let x=document.getElementById('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',2200)}
+function login(){let e=document.getElementById('email').value.trim().toLowerCase(),p=document.getElementById('pass').value;if((e==='thomas@entreprise.fr'&&p==='demo1234')||(e==='admin@entreprise.fr'&&p==='admin1234')){user={email:e,name:e.startsWith('admin')?'Administrateur':'Thomas Dupont',admin:e.startsWith('admin')};writeStore('ce_session',JSON.stringify(user));start(user)}else toast('Identifiants de démonstration incorrects.')}
+function start(sessionUser){let saved=sessionUser||JSON.parse(readStore('ce_session')||'null');if(!saved){return}user=saved;document.getElementById('login').style.display='none';document.getElementById('app').style.display='flex';document.getElementById('adminNav').style.display=user.admin?'block':'none';document.getElementById('hello').textContent=user.name;loadProfile();refresh();go('home')}
+function logout(){removeStore('ce_session');user=null;location.reload()}
+function go(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));document.getElementById(p).classList.add('on');document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('on',x.dataset.page===p));refresh();scrollTo(0,0)}
+document.querySelectorAll('[data-page]').forEach(x=>x.onclick=()=>go(x.dataset.page));
+function refresh(){renderSearch();renderMy();let mine=data.bookings.filter(x=>x.email===user.email).length;document.getElementById('bookingCount').textContent=mine;document.getElementById('msgCount').textContent=data.messages.filter(x=>x.to===user.email).length;document.getElementById('at').textContent=data.trips.length;document.getElementById('ab').textContent=data.bookings.length}
+function renderSearch(){let f=(document.getElementById('sf')?.value||'').toLowerCase(),t=(document.getElementById('st')?.value||'').toLowerCase(),r=document.getElementById('results');if(!r)return;r.innerHTML='';data.trips.filter(x=>(!f||x.from.toLowerCase().includes(f))&&(!t||x.to.toLowerCase().includes(t))).forEach(x=>{let avail=x.places-x.booked;let b=data.bookings.some(q=>q.tripId===x.id&&q.email===user.email);r.innerHTML+=`<div class="card trip"><div><h3>${x.owner} ⭐ 4,8</h3><div class="muted">${x.date} · ${x.time} · ${x.from} → ${x.to}</div><div class="tags"><span>${avail} place(s)</span><span>${x.rec}</span></div></div>${x.owner===user.name?'<span class="badge">Votre trajet</span>':b?'<span class="badge">Réservé ✓</span>':avail>0?`<button class="btn" onclick="book(${x.id})">Réserver</button>`:'<span class="badge">Complet</span>'}</div>`})}
+function book(id){let x=data.trips.find(q=>q.id===id);if(!x||x.booked>=x.places)return;data.bookings.push({tripId:id,email:user.email,name:user.name});x.booked++;save();toast('Place réservée ✓');refresh()}
+function createTrip(){let from=cf.value.trim(),to=ct.value.trim(),date=cd.value,time=ch.value,places=+cp.value;if(!from||!to||!date||!time){toast('Complétez les champs obligatoires');return}data.trips.push({id:Date.now(),owner:user.name,from,to,date,time,places,booked:0,rec:cr.value,comment:cc.value});save();toast('Trajet publié ✓');['cf','ct','cd','ch','cc'].forEach(id=>document.getElementById(id).value='');refresh();go('trips')}
+function renderMy(){let el=document.getElementById('myTrips');if(!el)return;let mine=data.trips.filter(x=>x.owner===user.name),bs=data.bookings.filter(x=>x.email===user.email);el.innerHTML='';mine.forEach(x=>el.innerHTML+=`<div class="card trip"><div><h3>${x.date} · ${x.time}</h3><div>${x.from} → ${x.to}</div><div class="tags"><span>Conducteur</span><span>${x.places-x.booked} place(s) disponible(s)</span></div></div><button class="btn red" onclick="deleteTrip(${x.id})">Supprimer</button></div>`);bs.forEach(b=>{let x=data.trips.find(q=>q.id===b.tripId);if(x)el.innerHTML+=`<div class="card trip"><div><h3>${x.date} · ${x.time}</h3><div>${x.from} → ${x.to}</div><div class="tags"><span>Passager</span><span>${x.owner}</span></div></div><button class="btn red" onclick="cancelBook(${x.id})">Annuler</button></div>`});if(!el.innerHTML)el.innerHTML='<div class="card muted">Aucun trajet pour le moment.</div>'}
+function deleteTrip(id){data.trips=data.trips.filter(x=>x.id!==id);data.bookings=data.bookings.filter(x=>x.tripId!==id);save();toast('Trajet supprimé');refresh()}
+function cancelBook(id){data.bookings=data.bookings.filter(x=>!(x.tripId===id&&x.email===user.email));let x=data.trips.find(q=>q.id===id);if(x)x.booked=Math.max(0,x.booked-1);save();toast('Réservation annulée');refresh()}
+function sendMsg(){let v=mi.value.trim();if(!v)return;document.getElementById('chat').innerHTML+=`<div class="bubble me">${v}</div>`;data.messages.push({from:user.email,to:'sophie@entreprise.fr',text:v});save();mi.value='';toast('Message envoyé')}
+function loadProfile(){pn.value=user.name;pe.value=user.email}
+function saveProfile(){toast('Profil enregistré ✓')}
+
+document.getElementById('pass').addEventListener('keydown',function(e){if(e.key==='Enter')login()});
+document.getElementById('email').addEventListener('keydown',function(e){if(e.key==='Enter')login()});
+const savedSession=readStore('ce_session');if(savedSession){try{start(JSON.parse(savedSession))}catch(e){removeStore('ce_session')}}
+</script></body></html>
